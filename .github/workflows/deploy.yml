@@ -23,6 +23,11 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
             cd /home/ebubenwanze/fastapi-book-project
             git pull origin main
+              # Check if venv exists, otherwise create it
+                 if [ ! -d "venv" ]; then
+                     python3 -m venv venv
+                 fi
+
             source venv/bin/activate
             pip install -r requirements.txt
             sudo systemctl restart fastapi
